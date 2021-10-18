@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  mqtt:
+    build: .
+    hostname: mosquitto
+    container_name: mosquitto
+    expose:
+      - "30001"
+      - "30002"
+    ports:
+      - "30001:30001"
+      - "30002:30002"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
