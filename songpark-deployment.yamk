@@ -1,0 +1,51 @@
+# Copy to cluster repo (eks-control)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: songpark-mqtt
+  namespace: internal
+  labels:
+    customer: songpark
+    purpose: infrastructure
+spec:
+  selector:
+    matchLabels:
+      app: songpark-mqtt-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: songpark-mqtt-app
+    spec:
+      containers:
+      - image: ???
+        imagePullPolicy: Always
+        name: songpark-mqtt-app
+        ports:
+        - containerPort: 30001
+          protocol: TCP
+        - containerPort: 30002
+		  protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: songpark-mqtt
+  namespace: internal
+spec:
+  type: NodePort
+  ports:
+  - port: 30001
+    targetPort: 30001
+    nodePort: 30001
+    name: mqtt-tcp
+    protocol: TCP
+  - port: 30002
+	targetPort: 30002
+	nodePort: 30002
+	name: mqtt-websocket
+	protocol: TCP
+  selector:
+    app: songpark-mqtt-app
+  externalIPs:
+    - 3.120.208.89
