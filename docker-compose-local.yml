@@ -6,6 +6,7 @@ services:
     hostname: mosquitto
     container_name: mosquitto
     environment:
+      - MQTT_USERNAME=songpark
       - MQTT_PASSWORD=testmctestson
     expose:
       - "30001"
