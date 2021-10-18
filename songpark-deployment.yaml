@@ -18,14 +18,25 @@ spec:
         app: songpark-mqtt-app
     spec:
       containers:
-      - image: ???
+      - image: 523581807964.dkr.ecr.eu-central-1.amazonaws.com/songpark-mqtt:latest
+        env:
+          - name: MQTT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: songpark-mqtt
+                key: mqtt-username
+          - name: MQTT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: songpark-mqtt
+                key: mqtt-password
         imagePullPolicy: Always
         name: songpark-mqtt-app
         ports:
         - containerPort: 30001
           protocol: TCP
         - containerPort: 30002
-		  protocol: TCP
+          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
