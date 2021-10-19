@@ -2,14 +2,13 @@ version: "3.7"
 
 services:
   mqtt:
+    image: songpark-mqtt:latest
     build: .
     hostname: mosquitto
     container_name: mosquitto
-    expose:
-      - "30001"
-      - "30002"
+    environment:
+      - MQTT_USERNAME
+      - MQTT_PASSWORD
     ports:
       - "30001:30001"
       - "30002:30002"
-    volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
