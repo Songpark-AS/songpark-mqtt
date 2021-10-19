@@ -15,5 +15,8 @@ push: tag
 deploy: tag
 	kubectl apply -f songpark-deployment.yaml
 
+remove:
+	kubectl delete -f songpark-deployment.yaml
+
 local:
 	docker-compose -f docker-compose-local.yaml up
