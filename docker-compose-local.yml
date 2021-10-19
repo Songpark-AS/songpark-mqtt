@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   mqtt:
+    image: songpark-mqtt:local
     build: .
     hostname: mosquitto
     container_name: mosquitto

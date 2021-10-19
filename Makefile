@@ -11,3 +11,9 @@ tag: build aws-pw
 
 push: tag
 	docker push 523581807964.dkr.ecr.eu-central-1.amazonaws.com/songpark-mqtt:latest
+
+deploy: tag
+	kubectl apply -f songpark-deployment.yaml
+
+local:
+	docker-compose -f docker-compose-local.yaml up
