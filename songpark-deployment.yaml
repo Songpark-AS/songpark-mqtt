@@ -48,10 +48,12 @@ spec:
     targetPort: 30001
     nodePort: 30001
     name: mqtt-tcp
+    protocol: TCP
   - port: 30002
     targetPort: 30002
     nodePort: 30002
     name: mqtt-websocket
+    protocol: TCP
   selector:
     app: songpark-mqtt-app
   externalIPs:
@@ -78,7 +80,7 @@ spec:
   - host: spmqtt.inonit.no
     http:
       paths:
-      - path: /mqtt/
+      - path: /mqtt
         pathType: ImplementationSpecific
         backend:
           service:
