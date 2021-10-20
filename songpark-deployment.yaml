@@ -49,11 +49,15 @@ spec:
     nodePort: 30001
     name: mqtt-tcp
     protocol: TCP
+  selector:
+    app: songpark-mqtt-app
+  externalIPs:
+    - 3.120.208.89
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: songpark-mqtt
+  name: songpark-mqtt-ws
   namespace: internal
 spec:
   type: LoadBalancer
