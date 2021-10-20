@@ -78,7 +78,7 @@ spec:
   - host: spmqtt.inonit.no
     http:
       paths:
-      - path: /mqtt
+      - path: /mqtt/
         pathType: ImplementationSpecific
         backend:
           service:
