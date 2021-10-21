@@ -75,7 +75,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: songpark-mqtt
+  name: songpark-mqtt-ws
   namespace: internal
   annotations:
     kubernetes.io/ingress.class: "nginx"
@@ -83,6 +83,8 @@ metadata:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.org/websocket-services: "songpark-mqtt-ws"
 
 spec:
   tls:
@@ -97,6 +99,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: songpark-mqtt
+            name: songpark-mqtt-ws
             port:
               number: 30002
