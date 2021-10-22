@@ -49,57 +49,61 @@ spec:
     nodePort: 30001
     name: mqtt-tcp
     protocol: TCP
-  selector:
-    app: songpark-mqtt
-  externalIPs:
-    - 3.120.39.69
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: songpark-mqtt-ws
-  namespace: internal
-spec:
-  type: LoadBalancer
-  ports:
   - port: 30002
     targetPort: 30002
     name: mqtt-websocket
     protocol: TCP
   selector:
     app: songpark-mqtt
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: songpark-mqtt-ws
-  namespace: internal
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt"
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.org/websocket-services: "songpark-mqtt-ws"
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
-    service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
-    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '3600'
+  externalIPs:
+    - 3.120.39.69
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: songpark-mqtt-ws
+#   namespace: internal
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 30002
+#     targetPort: 30002
+#     name: mqtt-websocket
+#     protocol: TCP
+#   selector:
+#     app: songpark-mqtt
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: songpark-mqtt-ws
+#   namespace: internal
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+#     cert-manager.io/cluster-issuer: "letsencrypt"
+#     kubernetes.io/tls-acme: "true"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+#     nginx.ingress.kubernetes.io/affinity: "cookie"
+#     nginx.org/websocket-services: "songpark-mqtt-ws"
+#     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+#     service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+#     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+#     service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: '3600'
 
-spec:
-  tls:
-  - hosts:
-    - spmqtt.inonit.no
-    secretName: spmqtt-inonit-no-tls
-  rules:
-  - host: spmqtt.inonit.no
-    http:
-      paths:
-      - path: /mqtt
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: songpark-mqtt-ws
-            port:
-              number: 30002
+# spec:
+#   tls:
+#   - hosts:
+#     - spmqtt.inonit.no
+#     secretName: spmqtt-inonit-no-tls
+#   rules:
+#   - host: spmqtt.inonit.no
+#     http:
+#       paths:
+#       - path: /mqtt
+#         pathType: ImplementationSpecific
+#         backend:
+#           service:
+#             name: songpark-mqtt-ws
+#             port:
+#               number: 30002
